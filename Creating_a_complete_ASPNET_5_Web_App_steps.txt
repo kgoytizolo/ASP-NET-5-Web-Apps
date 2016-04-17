@@ -1,0 +1,79 @@
+Creación de aplicación Web ASP NET 5 - Mi Librería - usando: 
+
+1. HTML5 + CSS
+2. JavaScript
+3. MVC 6
+4. Bootstrap
+5. Entity Framework 7
+6. Angular JS
+
+****************************************************************************************************************************************
+
+Un resumen de la nueva estructura de la aplicación web ASPNET 5 :)
+
+- Carpeta src		: Contiene todos los proyectos que incluyen el código fuente que conforma la aplicación.
+- Archivo global.json	: Acá se ponen las configuraciones a nivel de la solución de Visual Studio, y es donde se permiten las referencias de proyecto a proyecto.
+- Carpeta wwwroot	: Contiene todos los archivos estáticos (html, css, imágenes, javascript, etc) a ser mostrados del lado del cliente.
+- project.json		: Contiene configuraciones a nivel del proyecto.
+- startup.cs		: Acá se configura el inicio de la carga de la aplicación web, sea vía IIS Express o por línea de comandos (dnx web).
+
+1. HTML5 + CSS
+   - Como es que ASP.NET 5 entrega archivos estáticos? (
+   	- Desde la opción Startup.cs (Para iniciar la aplicación web) > función Configure(IApplicationBuilder app) > se debe hacer la llamada al html 
+   	  de página de inicio.
+   	- Inicialmente, sólo llamamos a una cadena "Hello World" cuando VS 2015 genera una plantilla en blanco. Y se podría enviar una cadena de html para mostrar 
+   	  información, pero lo correcto es derivar a una página de inicio.
+   	- Para ello se configuran los archivos estáticos (Static Files) desde la carpeta origen (wwwroot) para que se levante como página de inicio.
+   	- A partir de la carpeta wwwroot (debajo de las referencias o librerías del proyecto) podemos agregar la página de inicio y otras páginas que 
+   	  conformen la aplicación web a nivel cliente. Esta sería la raíz de los archivos html.
+   	  Ejemplo: Crear index.html
+   	- Ahora, borramos o comentamos todo el código dentro de la función Configure(IApplicationBuilder app) y levantamos la app desde IIS Express
+   	- Importante:
+   		- Cuando ejecutamos la aplicación mediante IIS Express, interpretará directamente que hay archivos estáticos dentro de wwwroot y los llama
+   		- En cambio si ejecutamos la aplicación desde dnx web, está acostumbrado a ejecutar desde el Startup.cs. Si desde ahí no se define que 
+   		  se tiene que llamar a una página estática habrán problemas. Aparte, el hosting está en otro puerto (5000) en vez del 8000 y habrán 
+   		  problemas para llamarlo.
+   		  
+   	- Remmplazar código borrado por: app.UseStaticFiles();		
+   		- Añadir el paquete: Microsoft.AspNet.StaticFiles dentro de 1.0.0-rc1-final
+   		- Visual Studio 2015 e indica el fix. Cuando lo aceptas (click derecho, añadir fix)
+   		- Visual Studio 2015 hace un restore del package y ahora ya se compila normalazo
+   		- Si revisamos el archivo project.json, se incluye la librería requerida dentro de la sección "dependencias" de la siguiente forma:
+   		
+		  "dependencies": {
+		    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
+		    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+		    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final"		//También se puede incluir manualmente y dar rebuild al proyecto :)
+		  },   									  
+   									  
+   	- Definir el archivo Index.html como html de inicio (por defecto):	
+   		- Adicionar app.UseDefaultFiles(); 				//La clase instanciada app (ApplicationBuilder) puede acceder a este método
+   										//para configurar el archivo por defecto. 
+   										//Importante: tiene que estar antes de "app.UseStaticFiles();"
+   										
+   	- Así tiene que quedar al final la función Configure dentro de Startup.cs. Levantamos el IIS Express y vemos que ahora sí accedemos al archivo index.html
+   	
+         public void Configure(IApplicationBuilder app)  	
+        {
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+        }   
+   
+   - Diseño actual de páginas con HTML5 y CSS
+   	- 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. JavaScript
+
+
+3. MVC 6
+
+
+4. Bootstrap
+
+
+5. Entity Framework 7
+
+
+6. Angular JS
