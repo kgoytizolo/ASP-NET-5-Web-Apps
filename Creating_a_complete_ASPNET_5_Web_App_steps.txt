@@ -60,7 +60,8 @@ Un resumen de la nueva estructura de la aplicación web ASPNET 5 :)
         }   
    
    - Diseño actual de páginas con HTML5 y CSS
-   	- 
+   	- <!DOCTYPE html>								//Para aplicaciones HTML5
+   	- Uso de DIVs para poner secciones como principal, header, footer, etc.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
