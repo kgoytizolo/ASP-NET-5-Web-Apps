@@ -3,30 +3,44 @@
 <head>
     <meta charset="utf-8" />
     <title>My Library - KeynimeGC Project</title>
+    <link rel="stylesheet" href="css/mainSite.css" />
 </head>
 <body>
-    <div id="main">
-        <h1>Mi Librería</h1>
-        <p style="font-style:italic;font-size:small">(We will open soon!)</p>
-        <hr /><br />
-        <form>
-            <div>
-                <label>Book:&nbsp;</label><input id="txtBook" />
-            </div>
-            <div>
-                <label>Author:&nbsp;</label><input id="txtAuthor" />
-            </div>
-            <div>
-                <label>Library Location:&nbsp;</label><input id="txtLibraryLocation" />
-            </div>
-            <div>
-                <input type="button" value="Add Book" />
-            </div>                
-        </form>
-        <br />
-        <hr />
+    <div id="sidebar">
+        <img src="img/userSample.jpg" alt="headshot" class="headshot" />
+        <span>Usuario X</span>
+        <ul class="menu">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Search Books</a></li>
+            <li><a href="#">Buy a Book</a></li>
+            <li><a href="#">See our Locals</a></li>
+        </ul>
     </div>
-    <div id="footer" style="font-family:Calibri;font-size:small">
+
+    <div id="wrapper">
+        <div id="main">
+            <h1>My Library</h1>
+            <p id="titleMessage">(We will open soon!)</p>
+            <hr /><br />
+            <form>
+                <div>
+                    <label>Book:&nbsp;</label><input id="txtBook" />
+                </div>
+                <div>
+                    <label>Author:&nbsp;</label><input id="txtAuthor" />
+                </div>
+                <div>
+                    <label>Library Location:&nbsp;</label><input id="txtLibraryLocation" />
+                </div>
+                <div>
+                    <input type="button" value="Add Book" />
+                </div>
+            </form>
+            <br />
+        </div>
+    </div>
+
+    <div id="footer">
         <p><center>&copy; 2015 - KeynimeGC Solutions Ltd.</center></p> 
     </div>
 </body>

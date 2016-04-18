@@ -1,0 +1,73 @@
+﻿body {
+    font-family: Calibri;
+    font-size: 14px;
+    margin: 0;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+}
+
+input[type=text], input[type=password], textarea {
+    width: 150px;
+}
+
+#titleMessage {
+    font-style:italic;
+    font-size:small;
+}
+
+#main {
+    background-color: antiquewhite;
+    padding: 4px;
+    margin: 0;
+}
+
+#footer {
+    font-size:small;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Menu Bar to the left */
+#sidebar {
+    background: #2a2c36;
+    color: antiquewhite;
+    position: fixed;
+    height: 100%;
+    width: 250px;
+    overflow: hidden;
+    left: 0;
+}
+
+#sidebar span {
+    font-weight: bold;
+}
+
+.headshot {
+    max-width: 50px;
+    border: 1px solid#222;
+    padding: 3px;
+}
+
+.menu {
+    font-size: 12px;
+}
+
+.menu li {
+    list-style-type: none;
+}
+
+.menu li.active{
+    font-weight: bold;
+}
+
+#wrapper {
+    margin-left: 250px;
+}

@@ -62,6 +62,15 @@ Un resumen de la nueva estructura de la aplicación web ASPNET 5 :)
    - Diseño actual de páginas con HTML5 y CSS
    	- <!DOCTYPE html>								//Para aplicaciones HTML5
    	- Uso de DIVs para poner secciones como principal, header, footer, etc.
+   	- Uso de CSS para los estilos de la página web. Se divide en 3 partes:
+   		- Style Tags:		Son los estilos que se ponen dentro de un tag HTML específico
+   		- Style Blocks:		Son los estilos que se ponen dentro de la sección <header></header>. Puede ser uno o más estilos agrupados
+   		- Stylesheets:		Son los estilos que se ponen dentro de un archivo *.css aparte y que son llamados dentro de la sección <header></header>
+   	- Uso de CSS selectors para definir que tanto va a abarcar el cambio en los elementos HTML de una página
+   	- The Box Model (para aplicar diseño de páginas web):
+   		- Margin > Border > Padding > Content  
+   		- left / right / bottom / top
+   		- height / width
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
