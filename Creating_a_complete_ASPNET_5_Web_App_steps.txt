@@ -75,7 +75,51 @@ Un resumen de la nueva estructura de la aplicación web ASPNET 5 :)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 2. JavaScript
+	- Usando el lenguaje por el lado del cliente para las aplicaciones web.
+	- Lenguaje orientado a objetos. Su herencia es de Prototipos en vez de clases.
+	- Es dinámica: no tiene tipo, pero tiene tipado dinámico
+	- La compilación es JIT (Just in Time) pero sin un formato intermediario (como MSIL, ByteCode), se interpreta con el navegador.
+	- Investigar Intellisense in JavaScript
+	- Se recomienda como mejores prácticas, poner al final de la página web el <script type="text/javascript"> para que primero se parsee todo y luego
+	  interprete los cambios que necesita (porque ya existen todos los elementos web).
+	- Con javascript podemos capturar eventos de los elementos HTML para que hagan una respectiva acción dentro de otras funciones Javascript
+	- No olvidar ver que elementos son compatibles con ciertos navegadores.. verificar eso para prevenir que funcione mal en un navegador y bien en otro
+	- Las funciones sirven para que la lógica javascript sea ejecutada a partir de ciertos eventos o elementos definidos. 
+	- En caso del alcance total (global scope) es mayormente para definir variables globales o acciones que realice toda la página web ni bien se llame 
+	  a ese archivo javascript. Para limitar el alcance global, definir en funciones las acciones a realizar.
+	- Alcance global: lógica fuera de las funciones javascript
+	
+//Function outside global scope (dentro del archivo Javascript)
+(function startup() {
+    var main = document.getElementById("main");
+    main.onmouseenter = function () {
+        main.style = "background-color: #FFF;";
+    };
+    main.onmouseleave = function () {
+        main.style = "background-color: antiquewhite;";
+    };
+})();	
 
+   - Uso de Bower: 
+	- A partir de Visual 2012 en adelante, se han usado extensiones de componentes a través de aplicaciones externas desde NuGet (como los plugins de
+	  Eclipse). Esto se usaba tanto por el lado del cliente, como del servidor. 
+	- Ahora, se sigue usando NuGet, pero solo para las dependencias del lado del servidor. Para los paquetes de dependencias de lado del cliente,
+	  se usa Bower. Es porque ahora la comunidad de desarrolladores exige que se generen paquetes del lado del cliente. Por eso ASPNET 5 adopta Bower.
+	- Utilizando el archivo de configuración Bower (a nivel de proyecto):
+		- Add New Item > Client Side > Bower Configuration File > 
+		- Dentro del archivo bower.json se agregan todas las dependencias a nivel de cliente requeridas (bootstrap, jquery, etc)
+		- Entre las configuraciones del archivo, en la parte de dependencias, agregar "underscore" para indicar la versión del paquete 
+		  a instalar (puede ser el actual o el versiones anteriores en caso de manejar aplicaciones web de versiones anteriores).
+		- Luego de indicar y grabar la versión de la dependencia > underscore > se autogenera una carpeta a nivel de la carpeta raíz wwwroot "lib"
+		- La carpeta lib > underscore > aparte de los archivos de la configuración json, agrega la librería JS (dependencia) requerida:
+		  underscore.js y se guarda su versión minificada / comprimida (underscore-min.js)
+		- En el archivo bower.json genérico > verificar .bowerrc > Contiene el directorio por defecto donde se instalarán las dependencias JS
+		- Repetir el mismo proceso para la dependencia "jquery" (última versión). Los archivos de la dependencia jquery también aparece dentro de la 
+		  carpeta: wwwroot > lib > jquery
+   - Uso de JQuery: con $
+	- Investigar en tutoriales o W3 Schools    
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3. MVC 6
 

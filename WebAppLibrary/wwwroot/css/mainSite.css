@@ -44,10 +44,38 @@ input[type=text], input[type=password], textarea {
     width: 250px;
     overflow: hidden;
     left: 0;
+    -moz-transition: left ease .25s;
+    -o-transition: left ease .25s;
+    -webkit-transition: left ease .25s;
+    transition: left ease .25s;
 }
 
 #sidebar span {
     font-weight: bold;
+}
+
+#wrapper {
+    margin-left: 250px;
+    -moz-transition: margin-left ease .25s;
+    -o-transition: margin-left ease .25s;
+    -webkit-transition: margin-left ease .25s;
+    transition: margin-left ease .25s;
+}
+
+#sidebar.hide-sidebar {
+    left: -250px;
+    -moz-transition: left ease .25s;
+    -o-transition: left ease .25s;
+    -webkit-transition: left ease .25s;
+    transition: left ease .25s;
+}
+
+#wrapper.hide-sidebar {
+    margin: 0;
+    -moz-transition: margin-left ease .25s;
+    -o-transition: margin-left ease .25s;
+    -webkit-transition: margin-left ease .25s;
+    transition: margin-left ease .25s;
 }
 
 .headshot {
@@ -66,8 +94,4 @@ input[type=text], input[type=password], textarea {
 
 .menu li.active{
     font-weight: bold;
-}
-
-#wrapper {
-    margin-left: 250px;
 }

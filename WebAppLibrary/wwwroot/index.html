@@ -8,7 +8,7 @@
 <body>
     <div id="sidebar">
         <img src="img/userSample.jpg" alt="headshot" class="headshot" />
-        <span>Usuario X</span>
+        <span id="userName">Usuario X</span>
         <ul class="menu">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#">Search Books</a></li>
@@ -19,6 +19,9 @@
 
     <div id="wrapper">
         <div id="main">
+            <div>
+                <button id="sidebarToggle">Toggle Menu</button>
+            </div>
             <h1>My Library</h1>
             <p id="titleMessage">(We will open soon!)</p>
             <hr /><br />
@@ -43,5 +46,9 @@
     <div id="footer">
         <p><center>&copy; 2015 - KeynimeGC Solutions Ltd.</center></p> 
     </div>
+
+    <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="js/mainSite.js"></script>
+
 </body>
 </html>
