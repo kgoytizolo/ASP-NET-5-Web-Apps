@@ -1,0 +1,26 @@
+﻿@model WebAppLibrary.ViewModels.ContactViewModel
+@{
+    ViewBag.Title = "Contact US";
+}
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+<h1>My Library - Contact US!</h1>
+<p id="titleMessage">(We will open soon!)</p>
+<hr /><br />
+<form>
+    <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
+    <label asp-for="Name">Name:&nbsp;</label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+    <label asp-for="Email">Email:&nbsp;</label>
+    <input type="email" asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+    <label asp-for="Message">Message:&nbsp;</label>
+    <textarea cols="40" rows="4" asp-for="Message"></textarea>
+    <span asp-validation-for="Message"></span>    
+    <div>
+        <input type="submit" value="Send Message" />
+    </div>
+</form>

@@ -10,16 +10,24 @@ namespace WebAppLibrary
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();      //Dependency Injection of available services for web application.
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
-            app.UseDefaultFiles();              //To define a file by default to be displayed in http://localhost:8080 
+            //app.UseDefaultFiles();              //To define a file by default to be displayed in http://localhost:8080 
             app.UseStaticFiles();               //Use any default file from wwwroot folder
                                                 //If app.UseDefaultFiles() is not defined yet above this method, you can access to static Files just
                                                 //entering: http://localhost:8080/Index.html (or another static file)
                                                 //But will not appear any default static file if only http://localhost:8080  is called 
+            app.UseMvc(config => {
+                config.MapRoute(
+                    name: "Default",
+                    template: "{controller}/{action}/{id?}",               //The route is still defining site/controller/action/
+                    defaults: new { controller = "App", Action = "Index" }
+                );
+            });
             //app.UseIISPlatformHandler();
 
             //app.Run(async (context) =>

@@ -122,8 +122,88 @@ Un resumen de la nueva estructura de la aplicación web ASPNET 5 :)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3. MVC 6
-
-
+	- Es la aplicación framework del lado del servidor, que implementa la arquitectura MVC (Modelo Vista Controlador). Donde:
+		- Modelo: 	Representa los datos devueltos por las entidades.
+		- Vista: 	Representa lo que devolvemos a la vista del usuario
+		- Controlador:	Interacción entre modelo y vista con manejo de eventos - renderización
+    - Como crear aplicaciones MVC 6 - ASPNET 5?
+	- En la clase Startup.cs se define nuevamente dentro de la función Configure(IApplicationBuilder app) el tipo de aplicación que queremos usar. 
+	- Anteriormente, definimos la configuración para mostrar un sitio de páginas estáticas HTML, pero ahora se indicará que usaremos una aplicación MVC.
+	- Quitamos app.UseDefaultFiles(); y mantenemos app.UseStaticFiles(); 	
+	- En la clase Startup.cs, habilitamos el uso de aplicaciones MVC dentro de la función ConfigureServices(IServiceCollection services) de la siguiente
+	  manera: 	services.AddMvc(); 
+	- Para configurar el framework Mvc y funcione, ir a la carpeta project.json y adicionar la dependencia requerida para MVC:
+		- "Microsoft.AspNet.Mvc": "6.0.0-rc1-final"	//Se puede agregar como fix también
+	- Volvemos a Startup.cs, y terminamos de habilitar el uso de aplicaciones MVC dentro de la función Configure(IApplicationBuilder app):
+		- app.UseMvc();			//Debajo de app.UseStaticFiles(); pero hay que configurarlo así:
+		
+            app.UseMvc(config => {						//Llama a RouteBuilder	
+                config.MapRoute(						//Realiza el mapeo de la ruta a mostrar
+                    name: "Default",						//Nombre por defecto a llamarlo
+                    template: "{controller}/{action}/{id?}",			//Modelo a seguir de la URL (controlador/accion/Id *en caso aplica)
+                    defaults: new { controller = "App", Action = "Index" }	//Configuración exclusiva del controlador por defecto (App) y su acción (Index)
+                );
+            });		
+									
+	- Creamos una carpeta llamada "Controllers" a nivel del proyecto. Dentro de esta carpeta, se crearán subcarpetas Web y Api.
+	- Creamos una carpeta llamada "Views" a nivel del proyecto. Dentro de esa carpeta, se crean las vistas por controlador (debe tener el mismo formato):
+		- Controlador: 	NombreADefinirController.cs 
+				El controlador hereda de la clase genérica Controller todas las características básicas para manejo de MVC
+				
+		- Vista:	NombreADefinir.cshtml
+	- Dentro del controlador, definir el evento de Index 
+	- Dentro de la vista (replicar html estático y colocar el siguiente código dinámico al inicio de la página): 
+	
+		@{ 
+		    ViewBag.Title = "Home Page";
+		}	
+	
+	  *Uso del lenguaje de marcado Razor (interpreta lenguaje C#)
+	 
+	- Importante: Antes de ejecutar el aplicativo, configurar nuevamente las rutas de las llamadas a los archivos css y js dentro de los htmls. 
+	  Asume por defecto que está dentro de wwwroot, pero hay que definir para que la ruta / url a llamar desde la app MVC con lo que queremos que haga
+	  cargue estos archivos:
+	  
+	  Anteponer a cada ruta el caracter "toggle" (~) así (dentro de Index.cshtml): 	
+	  <link rel="stylesheet" href="~/css/mainSite.css" />
+	  
+	  Esto hace que el hosting busque la ruta donde sea que esté en la aplicación y la genera.
+	  
+	  Ahora, si entras ya sea con:
+	  http://localhost:8000
+	  como con:
+	  http://localhost:8000/app/Index
+	  Se verá igual :)
+	  
+	- Creando la vista de diseño:
+		- Es una vista tipo cshtml, pero que será compartida por 2 o más controladores.
+		- Se crea dentro de la carpeta Views > Crear carpeta "Shared" > Archivo: _Layout.cshtml (Mvc View Layout Page).
+		- Se pone todo lo que se usa @RenderBody() es el contenedor de las vistas por controlador
+		- Una estructura que se use siempre se puede usar en la vista de diseño
+		- Además se tiene que adicionar otro archivo de tipo MVC View Start Page (para inicializar el view layout page inicial).
+	- Para configurar los TagHelpers incluir en las dependencias: "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final"
+		(Dentro del archivo _ViewImports.cshtml)
+	- Para configurar los ViewModels e implementarlos en las vistas, crear una entidad que luego será llamada así desde la vista:
+		- Dentro de los objetos html se puede poner:	asp-for="variableClase"	(obtiene el mismo nombre de la variable que se pone)
+		- Se puede poner tb a labels y otros elementos para adquirir propiedades
+	- Para hacer validaciones, se puede setear por variable del ViewModel. MVC tiene sus validaciones por defecto o las puedes personalizar
+		(Validaciones a nivel del servidor)
+		Ejemplos: 
+		- Usamos el atributo [Required] en la variable que queremos como requerida (no nulos, vacíos)
+		- Usamos el atributo [StringLength(max, min)]
+	- Para hacer validaciones a nivel de cliente:	uso de dependencias JS jquery-validation + jquery-validation-unobtrusive (en Bower.json)
+		- Antes, configurar en la vista de diseño (_Layout.cshtml) una sección para los scripts @RenderSection("Scripts", false)
+		  Así, serán utilizados por toda la página web.
+		- Una sección puede ser usada por una vista específica, pero se ejecutará realmente en la vista de diseño compartida para 
+		  todos (al final de la generación de la página web)
+	- Ahora, indicar al sistema cómo mostrar los errores y validaciones:
+		- El atributo dentro de los htmls "asp-validation-form" realiza las validaciones que toca por cada atributo del ViewModel
+	- Usando llamada de eventos POST y Model Binding: 
+		- Recoges información de POST al servidor desde datos obtenidos del formulario
+		- Para ello, colocas en el evento de la vista [HttpPost]. También puedes colocar otros de REST. Por defecto es HttpGet
+	- Creando un servicio para asociarlo a la aplicación
+		- Crear nueva carpeta > Services > Añadir archivo "MailService.cs"
+	
 4. Bootstrap
 
 
