@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using WebAppLibrary.Services;
+using WebAppLibrary.Models;
 
 namespace WebAppLibrary
 {
@@ -24,8 +25,11 @@ namespace WebAppLibrary
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();      //Dependency Injection of available services for web application.
-            services.AddScoped<IMailService, DebugMailService >();      //Interface, related class. 
+            services.AddMvc();                                          //Dependency Injection of available services for web application.
+            services.AddEntityFramework().                              //Dependency Injection of class LibraryContext only for Entity Framework 7
+                AddSqlServer().                                         //Package EntityFramework.SqlServer 7.0.0 - EntityFramework.MicrosoftSqlServer          
+                AddDbContext<LibraryContext>();
+            services.AddScoped<IMailService, DebugMailService >();      //Interface, related class (container with instance + class). 
                                                                         //We can change class for multiple purposes (Mock, testing, environment, etc)
         }
 

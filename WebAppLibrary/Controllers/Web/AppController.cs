@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNet.Mvc;
 using WebAppLibrary.ViewModels;
 using WebAppLibrary.Services;
+using WebAppLibrary.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,18 +11,21 @@ namespace WebAppLibrary.Controllers.Web
 {
     public class AppController : Controller
     {
-        private IMailService _mailService;  
+        private IMailService _mailService;
+        private LibraryContext _libraryContext;
 
         //Generating constructor uses dependency injection (controller injection from constructor - constructor injection)
         //Uses the implementation of the emailService, search the list of services added in Startup.cs for the first time, to be reused anytime without being instanced
         //ASPNET 5 has a constructor which searchs in Startup class all services to be used for dependency injection
-        public AppController(IMailService service) {
+        public AppController(IMailService service, LibraryContext context) {
             _mailService = service;
+            _libraryContext = context;
         }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
+            var books = _libraryContext.books.OrderBy(b => b.Name).ToList();
             return View();
         }
 
