@@ -1,16 +1,32 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
+using WebAppLibrary.Services;
 
 namespace WebAppLibrary
 {
     public class Startup
     {
+        public static IConfigurationRoot Configuration;             //To be used in other parts of the app
+
+        public Startup(IApplicationEnvironment appEnv) {
+            //Create a builder to add environment variables :)
+            var builder = new ConfigurationBuilder().
+                SetBasePath(appEnv.ApplicationBasePath).            //Application's level
+                AddJsonFile("config.json").                         //Additional config file created manually at project level
+                AddEnvironmentVariables();                          
+            Configuration = builder.Build();
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();      //Dependency Injection of available services for web application.
+            services.AddScoped<IMailService, DebugMailService >();      //Interface, related class. 
+                                                                        //We can change class for multiple purposes (Mock, testing, environment, etc)
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

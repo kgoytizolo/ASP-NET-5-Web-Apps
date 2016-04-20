@@ -9,7 +9,11 @@
 <h1>My Library - Contact US!</h1>
 <p id="titleMessage">(We will open soon!)</p>
 <hr /><br />
-<form>
+<form method="post">
+    @if(ViewBag.Message != null)
+    {
+        <br /><div>@ViewBag.Message</div>
+    }
     <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
     <label asp-for="Name">Name:&nbsp;</label>
     <input asp-for="Name" />
@@ -19,7 +23,7 @@
     <span asp-validation-for="Email"></span>
     <label asp-for="Message">Message:&nbsp;</label>
     <textarea cols="40" rows="4" asp-for="Message"></textarea>
-    <span asp-validation-for="Message"></span>    
+    <span asp-validation-for="Message"></span>
     <div>
         <input type="submit" value="Send Message" />
     </div>
