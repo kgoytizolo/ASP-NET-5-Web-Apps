@@ -1,4 +1,4 @@
-﻿body {
+﻿/*body {
     font-family: Calibri;
     font-size: 14px;
     margin: 0;
@@ -11,14 +11,14 @@ label {
 
 input[type=text], input[type=password], textarea {
     width: 150px;
-}
+}*/
 
 #titleMessage {
     font-style:italic;
     font-size:small;
 }
 
-#main {
+/*#main {
     background-color: antiquewhite;
     padding: 4px;
     margin: 0;
@@ -33,7 +33,7 @@ input[type=text], input[type=password], textarea {
     position: fixed;
     bottom: 0;
     width: 100%;
-}
+}*/
 
 /* Menu Bar to the left */
 #sidebar {

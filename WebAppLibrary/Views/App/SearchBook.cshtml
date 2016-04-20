@@ -1,20 +1,28 @@
 ﻿@{
     ViewBag.Title = "Search for an especific book";
 }
-<h1>My Library - Search for an especific book</h1>
-<p id="titleMessage">(We will open soon!)</p>
-<hr /><br />
-<form>
-    <div>
-        <label>Book:&nbsp;</label><input id="txtBook" />
+<div class="row">
+    <div class="col-md-6 col-xs-8">
+        <h1>My Library</h1>
+        <h4>Search for an especific book</h4>
+        <hr /><br />
+        <form>
+            <div class="form-group">
+                <label>Book:&nbsp;</label><input class="form-control" id="txtBook" />
+            </div>
+            <div class="form-group">
+                <label>Author:&nbsp;</label><input class="form-control" id="txtAuthor" />
+            </div>
+            <div class="form-group">
+                <label>Library Location:&nbsp;</label><input input class="form-control" id="txtLibraryLocation" />
+            </div>
+            <div class="form-group">
+                <input type="button" value="Add Book" class="btn btn-success" />
+            </div>
+        </form>
     </div>
-    <div>
-        <label>Author:&nbsp;</label><input id="txtAuthor" />
+    <div class="col-md-6 col-xs-4">
+        <h1>Local's Map</h1>
     </div>
-    <div>
-        <label>Library Location:&nbsp;</label><input id="txtLibraryLocation" />
-    </div>
-    <div>
-        <input type="button" value="Add Book" />
-    </div>
-</form>
+
+</div>
