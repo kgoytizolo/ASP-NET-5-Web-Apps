@@ -1,5 +1,8 @@
 ﻿{
   "AppSettings": {
     "SiteEmailAddress": "contactAdmin@myLibrary.com"
+  },
+  "Data": {
+    "LibraryContextCnx": "Server=(localdb)\\MSSQLLocalDB;Database=MyLibraryDB;Trusted_Connection=true;MultipleActiveResultSets=true"
   }
 }

@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using WebAppLibrary.Services;
 using WebAppLibrary.Models;
+using WebAppLibrary.Repositories.Interface;
+using WebAppLibrary.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace WebAppLibrary
 {
@@ -26,16 +29,21 @@ namespace WebAppLibrary
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();                                          //Dependency Injection of available services for web application.
+            services.AddLogging();                                      //DI - Enable logging in the configuration services (part of system assemblies)
             services.AddEntityFramework().                              //Dependency Injection of class LibraryContext only for Entity Framework 7
                 AddSqlServer().                                         //Package EntityFramework.SqlServer 7.0.0 - EntityFramework.MicrosoftSqlServer          
                 AddDbContext<LibraryContext>();
+            services.AddTransient<LibraryContextSeedData>();            //Dependency Injection of class LibraryContextSeedData. Register seeder to add data 
             services.AddScoped<IMailService, DebugMailService >();      //Interface, related class (container with instance + class). 
                                                                         //We can change class for multiple purposes (Mock, testing, environment, etc)
+            services.AddScoped<ILibraryRepository, LibraryRepository>();    //Other personalized component to be added into services container and used by DI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, LibraryContextSeedData seeder, ILoggerFactory loggerFactory)
         {
+            //Consider 2 types of logger factory: 
+            loggerFactory.AddDebug(LogLevel.Warning);               //You can choose the type of data if is a critical error, etc. To be shown on Debug Window
             //app.UseDefaultFiles();              //To define a file by default to be displayed in http://localhost:8080 
             app.UseStaticFiles();               //Use any default file from wwwroot folder
                                                 //If app.UseDefaultFiles() is not defined yet above this method, you can access to static Files just
@@ -48,6 +56,8 @@ namespace WebAppLibrary
                     defaults: new { controller = "App", Action = "Index" }
                 );
             });
+
+            seeder.EnsureSeedData();
             //app.UseIISPlatformHandler();
 
             //app.Run(async (context) =>
