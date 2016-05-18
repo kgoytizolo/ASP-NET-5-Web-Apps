@@ -2,7 +2,7 @@
 
 namespace WebAppLibrary.ViewModels
 {
-    public class ContactViewModel
+    public class ContactViewModel               //For validations
     {
         [Required]
         [StringLength(255, MinimumLength =5)]

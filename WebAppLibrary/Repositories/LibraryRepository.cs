@@ -39,7 +39,19 @@ namespace WebAppLibrary.Repositories
             catch (Exception e) {
                 return null;
             }
+        }
 
+        public ShoppingCart GetSalesById(int salesId)
+        {
+            try
+            {
+                _logger.LogInformation("Sales by Id will be returned");
+                return _context.ordersClient.Include(b => b.bookOrders).Where(b => b.Id == salesId).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<Book> GetBooksByAuthor()
@@ -47,5 +59,19 @@ namespace WebAppLibrary.Repositories
             return _context.books.Include(b => b.Author).OrderBy(b => b.Name).ToList();
         }
 
+        public void AddBook(Book newBook)
+        {
+            _context.Add(newBook);
+        }
+
+        public void AddShoppingCart(ShoppingCart newShoppingCart) {
+            _context.Add(newShoppingCart);
+        }
+
+        public bool SaveAll()
+        {
+            //Returns an integer 
+            return _context.SaveChanges() > 0;      //If changes are > 0, are saved
+        }
     }
 }

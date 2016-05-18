@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebAppLibrary.Models;
 
-namespace WebAppLibrary.Models
+namespace WebAppLibrary.ViewModels
 {
-    public class ShoppingCart
+    public class ShoppingCartViewModel
     {
         public int Id { get; set; }
         public double total { get; set; }

@@ -1,6 +1,7 @@
 ﻿{
   "AppSettings": {
-    "SiteEmailAddress": "contactAdmin@myLibrary.com"
+    "SiteEmailAddress": "contactAdmin@myLibrary.com",
+    "BingKey":  "DONTHARDCODEKEYSINCONFIGURATION"
   },
   "Data": {
     "LibraryContextCnx": "Server=(localdb)\\MSSQLLocalDB;Database=MyLibraryDB;Trusted_Connection=true;MultipleActiveResultSets=true"

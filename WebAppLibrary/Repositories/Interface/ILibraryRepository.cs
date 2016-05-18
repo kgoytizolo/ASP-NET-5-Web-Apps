@@ -8,5 +8,9 @@ namespace WebAppLibrary.Repositories.Interface
     {
         IEnumerable<Book> GetAllBooks();
         IEnumerable<Book> GetBooksByName();
+        void AddBook(Book book);
+        bool SaveAll();
+        ShoppingCart GetSalesById(int bookId);
+        void AddShoppingCart(ShoppingCart newShoppingCart);
     }
 }

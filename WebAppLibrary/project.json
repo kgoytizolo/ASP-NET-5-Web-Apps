@@ -13,7 +13,9 @@
     "EntityFramework.Core": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
     "EntityFramework.Commands": "7.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final"
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
+    "Microsoft.Extensions.CodeGenerators.Mvc": "1.0.0-rc1-final",
+    "AutoMapper":  "4.2.1" 
   },
 
   "commands": {
@@ -23,11 +25,19 @@
 
   "frameworks": {
     "dnx451": {
+      "dependencies": {
+        "AutoMapper": "4.2.1",
+        "System.Net.Http": "4.0.1-rc2-24027"
+      },
       "frameworkAssemblies": {
         "System.Data.Entity": "4.0.0.0"
       }
     },
-    "dnxcore50": { }
+    "dnxcore50": {
+      "dependencies": {
+        "System.Net.Http": "4.0.1-beta-23516"
+      }
+    }
   },
 
   "exclude": [

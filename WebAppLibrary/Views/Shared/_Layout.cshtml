@@ -10,8 +10,70 @@
     <link rel="stylesheet" href="~/lib/bootswatch/yeti/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/css/mainSite.css" />
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script type="text/javascript">
+
+         var map = null;
+
+         function GetMap()
+         {
+            // Initialize the map
+            map = new Microsoft.Maps.Map(document.getElementById("mapDiv"),{credentials:"Aq-kpKO9D3-MHaOyW36JQM6ECnal1S8WHNgmcC6bLm5vvPLZ1H0Ctg4ve-yOoUQf", mapTypeId:Microsoft.Maps.MapTypeId.road});
+
+         }
+
+         function ClickGeocode(credentials)
+         {
+             //alert("Que fue ah?" + document.getElementById("txtQuery").value + "/");
+             // && !document.getElementById("txtQuery").value == 'undefined' 
+             if (!document.getElementById("txtQuery").value === "") {
+                 map.getCredentials(MakeGeocodeRequest);
+                 document.getElementById("mapDiv").style.visibility = "visible";
+             }
+         }
+
+         function MakeGeocodeRequest(credentials)
+         {
+
+            var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(document.getElementById('txtQuery').value) + "&output=json&jsonp=GeocodeCallback&key=" + credentials;
+
+            CallRestService(geocodeRequest);
+         }
+
+         function GeocodeCallback(result)
+         {
+            alert("Found location: " + result.resourceSets[0].resources[0].name);
+
+            if (result &&
+                   result.resourceSets &&
+                   result.resourceSets.length > 0 &&
+                   result.resourceSets[0].resources &&
+                   result.resourceSets[0].resources.length > 0)
+            {
+               // Set the map view using the returned bounding box
+               var bbox = result.resourceSets[0].resources[0].bbox;
+               var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
+               map.setView({ bounds: viewBoundaries});
+
+               // Add a pushpin at the found location
+               var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
+               var pushpin = new Microsoft.Maps.Pushpin(location);
+               map.entities.push(pushpin);
+            }
+         }
+
+         function CallRestService(request)
+         {
+            var script = document.createElement("script");
+            script.setAttribute("type", "text/javascript");
+            script.setAttribute("src", request);
+            document.body.appendChild(script);
+         }
+
+    </script>
+
 </head>
-<body>
+<body onload="GetMap(), ClickGeocode();">
     <div id="sidebar">
         <img src="~/img/userSample.jpg" alt="headshot" class="headshot" />
         <span id="userName">Usuario X</span>
@@ -55,6 +117,8 @@
             <h4 class="text-center text-info">&copy; 2015 - KeynimeGC Solutions Ltd.</h4>
         </div>
     </div>
+
+    <input id="txtQuery" type="hidden" value="" />
 
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
